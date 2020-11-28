@@ -1,0 +1,316 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: app
+  description: REST Api
+basePath: /api/v1
+tags:
+  - name: Auth
+    description: Auth endpoint
+  - name: Users
+    description: Users endpoint
+  - name: Specification
+    description: The swagger API specification
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+# models definition
+definitions:
+
+  # toggle user roles start
+
+  UserRolesPartialUpdate:
+    type: object
+    title: Toggle user roles
+    properties:
+      addRoles:
+        type: array
+      takeRoles:
+        type: array
+
+  # toggle user roles end
+
+  # credentials body definition start
+  Credentials:
+    type: object
+    title: Sign In Payload
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+        example: username
+      password:
+        type: string
+        example: secret
+  # credentials body definition end
+
+  # user body definitions start
+  UserBody:
+    type: object
+    title: User Payload
+    required:
+      - username
+      - firstName
+      - lastName
+      - password
+      - email
+    properties:
+      firstName:
+        type: string
+        example: regualr
+      lastName:
+        type: string
+        example: user
+      username:
+        type: string
+        example: username
+      password:
+        type: string
+        example: secret
+      email:
+        type: string
+        format: email
+        example: test@tested.com
+
+  # user body definitions end
+
+  # user patch body definitions start
+  UserPatchBody:
+    type: object
+    title: Partial User Payload
+    properties:
+      firstName:
+        type: string
+        example: regualr
+      lastName:
+        type: string
+        example: user
+
+  # user patch body definitions end
+
+  # role body definition start
+  RoleBody:
+    type: object
+    title: Role Body Payload
+    properties:
+      name:
+        type: string
+        example: admin
+      description:
+        type: string
+        example: Description for role admin
+
+  # role body definition end
+
+paths:
+  # auth routes start
+  /auth:
+    get:
+      tags:
+        - Auth
+      description: Fetch authenticated user
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns authenticated user data
+
+    post:
+      tags:
+        - Auth
+      description: Sign in to retrive token
+      parameters:
+        - in: body
+          name: credentials
+          required: true
+          type: object
+          schema:
+            $ref: "#/definitions/Credentials"
+      responses:
+        200:
+          description: Returns user access token
+  # auth routes end
+
+  # user routes start
+  /users:
+    get:
+      tags:
+        - Users
+      description: Fetch users
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns users list
+    post:
+      tags:
+        - Users
+      description: Create new user
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+        - in: body
+          name: user
+          required: true
+          type: object
+          schema:
+            $ref: "#/definitions/UserBody"
+      responses:
+        201:
+          description: User created
+
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      description: Fetch user by id
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        200:
+          description: Returns user with given id
+    patch:
+      tags:
+        - Users
+      description: Partial update user
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: body
+          name: User
+          schema:
+            $ref: "#/definitions/UserPatchBody"
+      responses:
+        200:
+          description: User successfully updated
+
+  /users/{id}/roles:
+    get:
+      tags:
+        - User roles
+      description: Fetch user roles
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        200:
+          description: Returns user roles
+    patch:
+      tags:
+        - User roles
+      description: Toggle user roles
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: body
+          name: roles
+          schema:
+            ref: "#/definitions/UserRolesPartialUpdate"
+  # user routes end
+
+  # role routes start
+  /roles:
+    get:
+      tags:
+        - Roles
+      description: Fetch roles
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+      responses:
+        200:
+          description: Returns roles list
+
+    post:
+      tags:
+        - Roles
+      description: Create Role
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+        - in: body
+          name: role
+          required: true
+          type: object
+          schema:
+            $ref: "#/definitions/RoleBody"
+
+      response:
+        201:
+          description: Role successfully created
+  /roles/{id}:
+    get:
+      tags:
+        - Roles
+      description: Fetch role by id
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          type: string
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        200:
+          description: Returns role with given id
+  # role routes end
+
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification
+
+  /test:
+    get:
+      tags:
+        -
+      responses:
+        200:
+          description: Test purposes

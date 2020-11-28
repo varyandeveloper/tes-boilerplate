@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["reflect-metadata", "node"],
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "typeRoots": ["node_modules/@types", "./app/@types"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": false,
+    "removeComments": true
+  },
+  "ts-node": {
+    "files": true
+  },
+  "include": [
+    "app/**/*.ts",
+    "modules/**/*.ts"
+  ],
+  "exclude": ["node_modules"],
+  "files": [
+    "./app/@types/express/index.d.ts"
+  ]
+}
