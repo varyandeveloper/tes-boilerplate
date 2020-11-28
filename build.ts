@@ -18,12 +18,10 @@ const parsedFile: Record<string, string> = parse(
 
 parsedFile.APP_ENV = 'production';
 
-// change ts extension with js extension
 for (const [name, value] of Object.entries(parsedFile)) {
   parsedFile[name] = value.replace('*.ts', '*.js');
 }
 
-// set absolute path
 for (const [name, value] of Object.entries(parsedFile)) {
   parsedFile[name] = value.replace(
     'modules/**',
