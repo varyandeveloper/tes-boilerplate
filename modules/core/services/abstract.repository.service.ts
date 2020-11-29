@@ -18,14 +18,7 @@ export default abstract class AbstractRepositoryService<
   }
 
   async fetch(filter: Filter): Promise<Entity> {
-    if (
-      !filter ||
-      !filter.findOptions ||
-      !filter.findOptions.where ||
-      !Object.keys(filter.findOptions.where)
-    ) {
-      throw new Error('Fetch is not allowed without filter.');
-    }
+    this.validateFilters(filter);
     return this.repository.findOne(filter && filter.findOptions);
   }
 
@@ -42,6 +35,18 @@ export default abstract class AbstractRepositoryService<
   }
 
   async delete(filter: Filter): Promise<void> {
+    this.validateFilters(filter);
     await this.repository.delete(filter.findOptions);
+  }
+
+  protected validateFilters(filter: Filter): void {
+    if (
+      !filter ||
+      !filter.findOptions ||
+      !filter.findOptions.where ||
+      !Object.keys(filter.findOptions.where)
+    ) {
+      throw new Error('Method is not allowed without filter.');
+    }
   }
 }
