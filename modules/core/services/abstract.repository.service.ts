@@ -2,7 +2,15 @@ import { injectable } from 'inversify';
 import event from '../../../app/common/event';
 import { EVENTS } from '../../../app/config/events';
 import CoreQueryFilter from '../filters/core.query.filter';
-import { BaseEntity, DeepPartial, getRepository, Repository } from 'typeorm';
+import {
+  BaseEntity,
+  Repository,
+  getManager,
+  DeepPartial,
+  EntityManager,
+  getRepository,
+} from 'typeorm';
+import { IsolationLevel } from 'typeorm/driver/types/IsolationLevel';
 
 @injectable()
 export default abstract class AbstractRepositoryService<
@@ -15,6 +23,13 @@ export default abstract class AbstractRepositoryService<
     event.on(EVENTS.DB_CONNECTED, () => {
       this.repository = getRepository(this.entity);
     });
+  }
+
+  async inTransaction(
+    callback: (entityManager: EntityManager) => Promise<void>,
+    isolationLevel: IsolationLevel = 'READ COMMITTED'
+  ): Promise<void> {
+    await getManager().transaction(isolationLevel, callback);
   }
 
   async fetch(filter: Filter): Promise<Entity> {
