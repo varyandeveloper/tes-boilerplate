@@ -6,10 +6,10 @@ import { TYPES } from '../../../../../app/config/types';
 import { validate } from '../../middlewares/validation';
 import UserRoleController from './user.role.controller';
 import container from '../../../../../app/config/inversify.config';
-import AuthManager from '../../../../integration/modules/auth/auth.manager';
 import UserResponseEntity from '../../response/user.response.entity';
 import RoleQueryFilter from '../../../../acl/filters/role.query.filter';
 import UserQueryFilter from '../../../../user/filters/user.query.filter';
+import AuthManager from '../../../../integration/modules/auth/auth.manager';
 import UserToggleRolesRequest from '../../request/user.toggle.roles.request';
 
 const authManager = container.get<AuthManager>(TYPES.AuthManager);

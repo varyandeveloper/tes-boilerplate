@@ -1,9 +1,9 @@
 import { TYPES } from '../../../../app/config/types';
-import AclService from '../../../acl/services/acl.service';
 import { Request, Response, NextFunction } from 'express';
+import AclService from '../../../acl/services/acl.service';
 import container from '../../../../app/config/inversify.config';
-import AuthManager from '../../../integration/modules/auth/auth.manager';
 import UserQueryFilter from '../../../user/filters/user.query.filter';
+import AuthManager from '../../../integration/modules/auth/auth.manager';
 import AclOptionsInterface from '../../../acl/schemas/acl.options.schema';
 
 const ac = new AclService();

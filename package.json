@@ -14,11 +14,9 @@
     "dev:debug": "nodemon --exec \"node -r ts-node/register --inspect-brk\" app/index.ts | pino-pretty"
   },
   "dependencies": {
-    "accesscontrol": "^2.2.1",
     "autobind-decorator": "^2.4.0",
     "aws-sdk": "^2.773.0",
     "bcrypt": "^5.0.0",
-    "blob": "^0.1.0",
     "body-parser": "^1.19.0",
     "class-validator": "^0.12.2",
     "cookie-parser": "^1.4.5",
@@ -32,8 +30,6 @@
     "jwt-simple": "^0.5.6",
     "moment": "^2.29.0",
     "mongodb": "^3.6.2",
-    "mysql2": "^2.2.2",
-    "node-blob": "0.0.2",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
     "pg": "^8.5.1",

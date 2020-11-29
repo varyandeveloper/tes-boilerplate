@@ -5,8 +5,8 @@ import { TYPES } from '../../../../../app/config/types';
 import { validate } from '../../middlewares/validation';
 import RoleRequestEntity from '../../request/role.request';
 import container from '../../../../../app/config/inversify.config';
-import AuthManager from '../../../../integration/modules/auth/auth.manager';
 import RoleQueryFilter from '../../../../acl/filters/role.query.filter';
+import AuthManager from '../../../../integration/modules/auth/auth.manager';
 
 const authManager = container.get<AuthManager>(TYPES.AuthManager);
 const roleFilter = container.get<RoleQueryFilter>(TYPES.RoleQueryFilter);
