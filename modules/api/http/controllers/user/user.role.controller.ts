@@ -30,14 +30,15 @@ export default class UserRoleController extends AbstractUserController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const rolesToAdd = await this.roleService.fetchByIds(
-        ...req.body.addRoles
+      const user = await this.userService.fetch(req.filter.include('roles'));
+      await this.userService.associateRoles(
+        user,
+        req.body.addRoles,
+        req.body.takeRoles
       );
       return res.json(
         responseBuilder({
-          rolesToAdd,
-          rolesToTake: req.body.takeRoles,
-          userId: req.params.userId,
+          user,
         })
       );
     } catch (error) {

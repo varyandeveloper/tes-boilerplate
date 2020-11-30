@@ -39,8 +39,9 @@ export default express
   // user roles routes
   .get('/:userId/roles', roleFilter.apply(), userRoleController.fetchAll)
   .patch(
-    '/:userId/roles',
+    '/:id/roles',
     validate(UserToggleRolesRequest),
+    roleFilter.apply(),
     userRoleController.patch
   )
   .delete(

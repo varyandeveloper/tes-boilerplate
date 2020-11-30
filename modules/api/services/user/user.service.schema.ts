@@ -4,4 +4,10 @@ import { UserServiceInterface as CoreUserServiceInterface } from '../../../user/
 
 export interface UserServiceInterface extends CoreUserServiceInterface {
   buildEntity(requestEntity: UserRequest): Promise<UserEntity>;
+
+  associateRoles(
+    user: UserEntity,
+    rolesToAdd: Array<string>,
+    rolesToTake: Array<string>
+  ): Promise<UserEntity>;
 }
