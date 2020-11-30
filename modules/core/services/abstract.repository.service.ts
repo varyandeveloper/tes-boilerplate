@@ -7,6 +7,7 @@ import {
   Repository,
   getManager,
   DeepPartial,
+  EntityTarget,
   EntityManager,
   getRepository,
 } from 'typeorm';
@@ -16,10 +17,10 @@ import { RepositoryServiceInterface } from './repository.service.schema';
 @injectable()
 export default abstract class AbstractRepositoryService<
   Entity extends BaseEntity,
-  Filter extends CoreQueryFilter
+  Filter extends CoreQueryFilter<Entity>
 > implements RepositoryServiceInterface<Entity, Filter> {
   protected repository: Repository<Entity>;
-  protected entity: any;
+  protected entity: EntityTarget<Entity>;
   constructor() {
     event.on(EVENTS.DB_CONNECTED, () => {
       this.repository = getRepository(this.entity);

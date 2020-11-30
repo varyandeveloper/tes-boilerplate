@@ -2,7 +2,7 @@ import { SelectQueryBuilder } from 'typeorm';
 import AccessQueryFilter from './access.query.filter';
 import PermissionEntity from '../entities/permission.entity';
 
-export default class PermissionQueryFilter extends AccessQueryFilter {
+export default class PermissionQueryFilter extends AccessQueryFilter<PermissionEntity> {
   userId(
     qb: SelectQueryBuilder<PermissionEntity>,
     userId: string

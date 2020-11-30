@@ -5,13 +5,18 @@ import { NextFunction, Request, Response, RequestHandler } from 'express';
 
 @autobind
 @injectable()
-export default class CoreQueryFilter {
+export default class CoreQueryFilter<Entity> {
   protected _findOptions: FindManyOptions = {
     relations: [],
     where: {},
   };
 
   public target: any;
+
+  include(...relations: Array<string>): CoreQueryFilter<Entity> {
+    this.findOptions.relations.push(...relations);
+    return this;
+  }
 
   apply(responseEntity = null): RequestHandler {
     return (req: Request, res: Response, next: NextFunction): void => {
@@ -38,7 +43,7 @@ export default class CoreQueryFilter {
     };
   }
 
-  id(qb: SelectQueryBuilder<any>, ...id: string[]): CoreQueryFilter {
+  id(qb: SelectQueryBuilder<Entity>, ...id: string[]): CoreQueryFilter<Entity> {
     if (!qb) {
       this._findOptions.where['id'] = id.length > 1 ? In(id) : id[0];
     } else {
@@ -47,12 +52,12 @@ export default class CoreQueryFilter {
     return this;
   }
 
-  skip(value: number): CoreQueryFilter {
+  skip(value: number): CoreQueryFilter<Entity> {
     this._findOptions.skip = value;
     return this;
   }
 
-  take(value: number): CoreQueryFilter {
+  take(value: number): CoreQueryFilter<Entity> {
     this._findOptions.take = value;
     return this;
   }

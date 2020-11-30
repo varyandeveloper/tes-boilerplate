@@ -6,7 +6,7 @@ import { LessThan, Like, MoreThan, SelectQueryBuilder } from 'typeorm';
 
 @autobind
 @injectable()
-export default class UserQueryFilter extends CoreQueryFilter {
+export default class UserQueryFilter extends CoreQueryFilter<UserEntity> {
   userId(qb: SelectQueryBuilder<UserEntity>, value: string): UserQueryFilter {
     super.id(qb, value);
     return this;

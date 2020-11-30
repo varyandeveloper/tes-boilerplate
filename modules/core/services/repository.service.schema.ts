@@ -3,7 +3,7 @@ import CoreQueryFilter from '../filters/core.query.filter';
 
 export interface RepositoryServiceInterface<
   Entity extends BaseEntity,
-  Filter extends CoreQueryFilter
+  Filter extends CoreQueryFilter<Entity>
 > {
   fetch(filter: Filter): Promise<Entity>;
 
