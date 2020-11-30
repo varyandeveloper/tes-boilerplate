@@ -1,11 +1,12 @@
 import { getRepository } from 'typeorm';
 import AclSchema from '../entities/acl.schema';
+import { AclServiceInterface } from './acl.service.schema';
 import AclOptionsSchema from '../schemas/acl.options.schema';
 
 export const STRATEGY_ANY = 1; // permitted by any of mentioned options
 export const STRATEGY_ALL = 2; // permitted by all of mentioned options
 
-export default class AclService {
+export default class AclService implements AclServiceInterface {
   protected strategy: number = STRATEGY_ANY;
 
   async permitted(

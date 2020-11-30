@@ -11,12 +11,13 @@ import {
   getRepository,
 } from 'typeorm';
 import { IsolationLevel } from 'typeorm/driver/types/IsolationLevel';
+import { RepositoryServiceInterface } from './repository.service.schema';
 
 @injectable()
 export default abstract class AbstractRepositoryService<
   Entity extends BaseEntity,
   Filter extends CoreQueryFilter
-> {
+> implements RepositoryServiceInterface<Entity, Filter> {
   protected repository: Repository<Entity>;
   protected entity: any;
   constructor() {
