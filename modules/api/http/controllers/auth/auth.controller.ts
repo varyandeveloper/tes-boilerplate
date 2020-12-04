@@ -4,7 +4,6 @@ import { StatusCodes } from 'http-status-codes';
 import { TYPES } from '../../../../../app/config/types';
 import { Response, Request, NextFunction } from 'express';
 import responseBuilder from '../../../utils/responseBuilder';
-import UserResponseEntity from '../../response/user.response.entity';
 import AuthManager from '../../../../integration/modules/auth/auth.manager';
 
 @autobind
@@ -37,7 +36,7 @@ export default class AuthController {
   async me(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
       const user = await this.authManager.getUser(req.filter);
-      return res.json(responseBuilder(user, UserResponseEntity));
+      return res.json(responseBuilder(user, req.filter.target));
     } catch (error) {
       next(error);
     }
