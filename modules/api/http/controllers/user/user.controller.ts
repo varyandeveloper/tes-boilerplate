@@ -2,8 +2,8 @@ import { injectable } from 'inversify';
 import autobind from 'autobind-decorator';
 import { StatusCodes } from 'http-status-codes';
 import { NextFunction, Request, Response } from 'express';
+import responseBuilder from '../../../utils/responseBuilder';
 import AbstractUserController from './abstract.user.controller';
-import responseBuilder from '../../../../../app/common/responseBuilder';
 
 @autobind
 @injectable()

@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { TYPES } from '../../../../../app/config/types';
 import { Request, Response, NextFunction } from 'express';
-import responseBuilder from '../../../../../app/common/responseBuilder';
+import responseBuilder from '../../../utils/responseBuilder';
 import { RoleServiceInterface } from '../../../services/role/role.service.schema';
 import AbstractResourceController from '../../../../core/abstract.resource.controller';
 

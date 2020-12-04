@@ -1,4 +1,4 @@
-import Exception from '../../../../../../app/common/exception';
+import Exception from '../../../../../api/exception/exception';
 import { AbstractEventHandler } from '../handlers/abstract.event.handler';
 import { MediaAvailableEventHandler } from '../handlers/media.available.event.handler';
 import { ConversionsCompleteEventHandler } from '../handlers/conversions.complete.event.handler';

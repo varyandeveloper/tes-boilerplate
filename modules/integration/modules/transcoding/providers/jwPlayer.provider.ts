@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import FormData from 'form-data';
 import { injectable } from 'inversify';
 import { AbstractProvider } from './abstract.provider';
-import Exception from '../../../../../app/common/exception';
+import Exception from '../../../../api/exception/exception';
 import { PROVIDER_JW_PLAYER, TRANSCODING } from '../config/module.config';
 
 @injectable()

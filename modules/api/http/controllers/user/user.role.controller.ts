@@ -2,8 +2,8 @@ import autobind from 'autobind-decorator';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../../../../app/config/types';
 import { Request, Response, NextFunction } from 'express';
+import responseBuilder from '../../../utils/responseBuilder';
 import AbstractUserController from './abstract.user.controller';
-import responseBuilder from '../../../../../app/common/responseBuilder';
 import { RoleServiceInterface } from '../../../services/role/role.service.schema';
 
 @autobind

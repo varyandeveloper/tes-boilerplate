@@ -3,8 +3,8 @@ import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import { TYPES } from '../../../../../app/config/types';
 import { Response, Request, NextFunction } from 'express';
+import responseBuilder from '../../../utils/responseBuilder';
 import UserResponseEntity from '../../response/user.response.entity';
-import responseBuilder from '../../../../../app/common/responseBuilder';
 import AuthManager from '../../../../integration/modules/auth/auth.manager';
 
 @autobind

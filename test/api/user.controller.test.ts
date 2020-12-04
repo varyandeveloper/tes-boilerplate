@@ -1,10 +1,10 @@
 import 'mocha';
 import { expect } from 'chai';
 import {
-  API_URL,
-  loginWithDefaultUser,
-  makeSureAllIsReady,
   req,
+  API_URL,
+  makeSureAllIsReady,
+  loginWithDefaultUser,
 } from '../common';
 
 describe('User endpoints', () => {
@@ -26,8 +26,7 @@ describe('User endpoints', () => {
       .then((response) => {
         expect(response.body).to.be.an('array');
         userId =
-          response.body[Math.floor(Math.random() * (response.body.length - 1))]
-            .id;
+          response.body[Math.floor(Math.random() * response.body.length)].id;
       });
   });
 
