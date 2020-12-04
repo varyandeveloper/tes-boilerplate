@@ -1,9 +1,8 @@
 import { injectable } from 'inversify';
-import autobind from 'autobind-decorator';
 import { FindManyOptions, In, SelectQueryBuilder } from 'typeorm';
 import { NextFunction, Request, Response, RequestHandler } from 'express';
+import { AbstractResponseEntity } from '../../api/http/response/abstract.response.entity';
 
-@autobind
 @injectable()
 export default class CoreQueryFilter<Entity> {
   protected _findOptions: FindManyOptions = {
@@ -11,7 +10,7 @@ export default class CoreQueryFilter<Entity> {
     where: {},
   };
 
-  public target: any;
+  public target: AbstractResponseEntity;
 
   include(...relations: Array<string>): CoreQueryFilter<Entity> {
     this.findOptions.relations.push(...relations);

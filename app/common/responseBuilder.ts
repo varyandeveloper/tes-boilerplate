@@ -1,6 +1,7 @@
 import HydratorService from '../../modules/core/services/hydrator.service';
 
-export default function responseBuilder(source, target = null): any {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function responseBuilder(source: any, target = null): any {
   if (null === target) {
     return source;
   }

@@ -10,9 +10,11 @@ export default class HydratorService {
     return result;
   }
 
-  static hydrate(source: any, target: any): Record<string, unknown> {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  static hydrate(source: any, target: any): Record<string, any> {
     const obj = new target();
     Object.getOwnPropertyNames(target.prototype).forEach((key) => {
+      // TODO find a way to avoid using RESPONSE constant here as it too bad solution it harms Dependency Inversion principe
       if (source && key in source) {
         if (
           source[key] instanceof BaseEntity &&

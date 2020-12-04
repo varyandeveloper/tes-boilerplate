@@ -5,14 +5,13 @@ import {
   ValidationArguments,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { getRepository } from 'typeorm';
-
-let currentEntity: any;
+import { BaseEntity, getRepository } from 'typeorm';
 
 @ValidatorConstraint({ async: true })
 export class IsUnique implements ValidatorConstraintInterface {
   async validate(name: string, args: ValidationArguments): Promise<boolean> {
-    const repository = getRepository(currentEntity);
+    const repository = getRepository(args.constraints[1]);
+    delete args.constraints[1];
     const count = await repository.count({
       where: { [args.property]: args.value },
     });
@@ -22,11 +21,10 @@ export class IsUnique implements ValidatorConstraintInterface {
 }
 
 export function IsUniqueColumn(
-  entity: any,
+  entity: typeof BaseEntity,
   validationOptions?: ValidationOptions
-): any {
-  currentEntity = entity;
-  return function (object: any, propertyName: string): void {
+): (object: any, propertyName: string) => void {
+  return (object: any, propertyName: string): void => {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,
@@ -34,7 +32,7 @@ export function IsUniqueColumn(
         ...validationOptions,
         message: `${propertyName} has already been taken.`,
       },
-      constraints: [propertyName],
+      constraints: [propertyName, entity],
       validator: IsUnique,
     });
   };

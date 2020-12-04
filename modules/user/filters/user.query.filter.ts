@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import autobind from 'autobind-decorator';
 import UserEntity from '../entities/user.entity';
 import CoreQueryFilter from '../../core/filters/core.query.filter';
-import { LessThan, Like, MoreThan, SelectQueryBuilder } from 'typeorm';
+import { LessThan, ILike, MoreThan, SelectQueryBuilder } from 'typeorm';
 
 @autobind
 @injectable()
@@ -37,12 +37,12 @@ export default class UserQueryFilter extends CoreQueryFilter<UserEntity> {
     qb: SelectQueryBuilder<UserEntity>,
     value: string
   ): UserQueryFilter {
-    qb.where({ firstName: Like(`${value}%`) });
+    qb.where({ firstName: ILike(`${value}%`) });
     return this;
   }
 
   lastName(qb: SelectQueryBuilder<UserEntity>, value: string): UserQueryFilter {
-    qb.where({ lastName: Like(`${value}%`) });
+    qb.where({ lastName: ILike(`${value}%`) });
     return this;
   }
 

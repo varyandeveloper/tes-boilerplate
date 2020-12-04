@@ -1,27 +1,18 @@
 import RoleEntity from '../../../acl/entities/role.entity';
+import { AbstractResponseEntity } from './abstract.response.entity';
 import PermissionEntity from '../../../acl/entities/permission.entity';
 import OrganizationEntity from '../../../organization/entities/organization.entity';
 
-export default class UserResponseEntity {
-  private _id: string;
+export default class UserResponseEntity extends AbstractResponseEntity {
   private _firstName: string;
   private _lastName: string;
   private _username: string;
   private _email: string;
-  private _createdAt: string;
   private _roles: Array<RoleEntity>;
   private _permissions: Array<PermissionEntity>;
   private _organization: OrganizationEntity;
 
   static fieldsToSelect = ['id', 'firstName', 'lastName', 'email', 'createdAt'];
-
-  get id(): string {
-    return this._id;
-  }
-
-  set id(value: string) {
-    this._id = value;
-  }
 
   get firstName(): string {
     return this._firstName;
@@ -53,14 +44,6 @@ export default class UserResponseEntity {
 
   set email(value: string) {
     this._email = value;
-  }
-
-  get createdAt(): string {
-    return this._createdAt;
-  }
-
-  set createdAt(value: string) {
-    this._createdAt = value;
   }
 
   set roles(roles: Array<RoleEntity>) {

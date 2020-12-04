@@ -3,12 +3,11 @@ import { ValidationError } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 
 export default function errorHandler(
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  err: any,
+  err: Express.Error,
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Response {
   l.error(err);
   if (err instanceof Array && err[0] instanceof ValidationError) {
     const formattedErrors = {};
