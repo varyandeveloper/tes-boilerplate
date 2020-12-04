@@ -1,0 +1,482 @@
+{
+	"info": {
+		"_postman_id": "b0aa02b9-8544-49ac-aa9e-783b317ddec6",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									"const jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"USER_ID\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/auth",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									"const jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"AUTH_TOKEN\", jsonData.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"varyan\",\r\n    \"password\": \"secret\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/auth",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Fetch User Roles",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+										"exec": [
+											"const jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"ROLE_ID\", jsonData[Math.floor(Math.random() * jsonData.length)].id)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/users/{{USER_ID}}/roles",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"{{USER_ID}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Toggle user roles",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"addRoles\": [\"77025444-c820-4b1c-912f-e2026569f9ed\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/{{VERSION}}/users/{{USER_ID}}/roles",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"{{USER_ID}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Fetch All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "814b926b-6138-4ea3-87d7-a8424e97760c",
+								"exec": [
+									"const jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"USER_ID\", jsonData[Math.floor(Math.random() * jsonData.length)].id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/users/{{USER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"password\": \"secret\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Partialy Update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Varazdat\",\r\n    \"lastName\": \"Stepanyan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/users/{{USER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Fetch By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/roles/{{ROLE_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"roles",
+								"{{ROLE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch All",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									"const jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"ROLE_ID\", jsonData[Math.floor(Math.random() * jsonData.length)].id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/roles",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d35b661-90d7-4b35-8a47-6c12a4416b1a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AUTH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"super-admin\",\r\n    \"description\": \"Role that provides to do anything\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/{{VERSION}}/roles",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
