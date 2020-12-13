@@ -2,6 +2,7 @@ declare namespace Express {
   interface Request {
     filter;
     formEntity;
+    resource: string;
   }
 
   interface Error {

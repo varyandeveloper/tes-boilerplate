@@ -1,4 +1,5 @@
 import l from '../../../../app/common/logger';
+import { StatusCodes } from 'http-status-codes';
 import { ValidationError } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 
@@ -17,8 +18,8 @@ export default function errorHandler(
       }
       formattedErrors[error.property].push(error.constraints);
     });
-    return res.status(400).json(formattedErrors);
+    return res.status(StatusCodes.BAD_REQUEST).json(formattedErrors);
   }
-  res.status(err.status || err.statusCode || 500);
+  res.status(err.status || err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR);
   return res.json({ message: err.message || err.msg || 'Server side error' });
 }
