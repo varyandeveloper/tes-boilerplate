@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
+import { SelectQueryBuilder } from 'typeorm';
 import RoleEntity from '../entities/role.entity';
-import { Like, SelectQueryBuilder } from 'typeorm';
 import PermissionEntity from '../entities/permission.entity';
 import CoreQueryFilter from '../../core/filters/core.query.filter';
 
@@ -10,7 +10,7 @@ export default class AccessQueryFilter<Entity> extends CoreQueryFilter<Entity> {
     qb: SelectQueryBuilder<RoleEntity | PermissionEntity>,
     name: string
   ): AccessQueryFilter<Entity> {
-    qb.where({ name: Like(`${name}%`) });
+    qb.andWhere(`${qb.alias}.name ILIKE :name`, { name: `${name}%` });
     return this;
   }
 }

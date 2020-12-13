@@ -7,9 +7,11 @@ export default class PermissionQueryFilter extends AccessQueryFilter<PermissionE
     qb: SelectQueryBuilder<PermissionEntity>,
     userId: string
   ): PermissionQueryFilter {
-    qb.innerJoin('user_permissions', 'up', 'up.usersId = :userId', {
-      userId,
-    });
+    qb.leftJoin(
+      'user_permissions',
+      'up',
+      `up.permissionsId = ${qb.alias}.id`
+    ).andWhere('up.usersId = :userId', { userId });
     return this;
   }
 }

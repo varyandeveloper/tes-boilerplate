@@ -50,11 +50,16 @@ export default class CoreQueryFilter<Entity> {
     };
   }
 
-  id(qb: SelectQueryBuilder<Entity>, ...id: string[]): CoreQueryFilter<Entity> {
+  id(
+    qb: SelectQueryBuilder<Entity>,
+    ...ids: string[]
+  ): CoreQueryFilter<Entity> {
     if (!qb) {
-      this._findOptions.where['id'] = id.length > 1 ? In(id) : id[0];
+      this._findOptions.where['id'] = ids.length > 1 ? In(ids) : ids[0];
     } else {
-      id.length > 1 ? qb.whereInIds(id) : qb.where({ id: id[0] });
+      ids.length > 1
+        ? qb.andWhereInIds(ids)
+        : qb.andWhere(`${qb.alias}.id = :id`, { id: ids[0] });
     }
     return this;
   }
@@ -79,14 +84,14 @@ export default class CoreQueryFilter<Entity> {
     options: Array<any>
   ) {
     return (qb: SelectQueryBuilder<Entity>): void => {
-      qb.where(isMartSelect ? '(true' : 'true');
+      qb.where('(true');
       for (const [key, value] of options) {
         if (key in obj) {
           obj[key](qb, ...value.toString().split(','));
         }
       }
+      qb.andWhere('true)');
       if (isMartSelect) {
-        qb.andWhere('true)');
         qb.orWhere(
           new Brackets((qb1) => {
             qb1.orWhereInIds(CoreQueryFilter.smartSelectIds);

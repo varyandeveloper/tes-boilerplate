@@ -4,9 +4,11 @@ import AccessQueryFilter from './access.query.filter';
 
 export default class RoleQueryFilter extends AccessQueryFilter<RoleEntity> {
   userId(qb: SelectQueryBuilder<RoleEntity>, userId: string): RoleQueryFilter {
-    qb.innerJoin('user_roles', 'ur', 'ur.usersId = :userId', {
-      userId,
-    });
+    qb.leftJoin(
+      'user_roles',
+      'ur',
+      `ur.rolesId = ${qb.alias}.id`
+    ).andWhere('ur.usersId = :userId', { userId });
     return this;
   }
 }
