@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
-import { FindManyOptions, In, SelectQueryBuilder } from 'typeorm';
 import { NextFunction, Request, Response, RequestHandler } from 'express';
+import { Brackets, FindManyOptions, In, SelectQueryBuilder } from 'typeorm';
 import { AbstractResponseEntity } from '../../api/http/response/abstract.response.entity';
 
 @injectable()
@@ -10,7 +10,17 @@ export default class CoreQueryFilter<Entity> {
     where: {},
   };
 
+  protected static smartSelectIds: Array<string>;
+
   public target: AbstractResponseEntity;
+
+  smart(
+    qb: SelectQueryBuilder<Entity>,
+    ...ids: string[]
+  ): CoreQueryFilter<Entity> {
+    CoreQueryFilter.smartSelectIds = ids;
+    return this;
+  }
 
   include(...relations: Array<string>): CoreQueryFilter<Entity> {
     this.findOptions.relations.push(...relations);
@@ -25,13 +35,11 @@ export default class CoreQueryFilter<Entity> {
         obj._findOptions.relations = req.query.with.toString().split(',');
         delete options['with'];
       }
-      obj._findOptions.where = (qb) => {
-        for (const [key, value] of options) {
-          if (typeof obj[key] !== 'undefined') {
-            obj[key](qb, value);
-          }
-        }
-      };
+      obj._findOptions.where = this.initWhere(
+        req.query.hasOwnProperty('smart'),
+        obj,
+        options
+      );
       req.filter = obj;
       if (responseEntity && responseEntity.fieldsToSelect) {
         req.filter.entity = responseEntity;
@@ -63,5 +71,29 @@ export default class CoreQueryFilter<Entity> {
 
   get findOptions(): any {
     return this._findOptions;
+  }
+
+  protected initWhere(
+    isMartSelect: boolean,
+    obj: CoreQueryFilter<Entity>,
+    options: Array<any>
+  ) {
+    return (qb: SelectQueryBuilder<Entity>): void => {
+      qb.where(isMartSelect ? '(true' : 'true');
+      for (const [key, value] of options) {
+        if (key in obj) {
+          obj[key](qb, ...value.toString().split(','));
+        }
+      }
+      if (isMartSelect) {
+        qb.andWhere('true)');
+        qb.orWhere(
+          new Brackets((qb1) => {
+            qb1.orWhereInIds(CoreQueryFilter.smartSelectIds);
+          })
+        );
+        CoreQueryFilter.smartSelectIds = [];
+      }
+    };
   }
 }
