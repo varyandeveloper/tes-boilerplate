@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { TYPES } from '../../config/types';
 import { inject, injectable } from 'inversify';
-import UserRequest from '../../http/request/user.request';
+import UserRequest from '../../http/request/user/user.request';
 import UserEntity from '../../../user/entities/user.entity';
 import { UserServiceInterface } from './user.service.schema';
 import HashService from '../../../core/services/hash.service';

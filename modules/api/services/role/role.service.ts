@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import RoleEntity from '../../../acl/entities/role.entity';
 import { RoleServiceInterface } from './role.service.schema';
-import RoleRequestEntity from '../../http/request/role.request';
+import RoleRequestEntity from '../../http/request/role/role.request';
 import RoleQueryFilter from '../../../acl/filters/role.query.filter';
 import { RoleService as CoreRoleService } from '../../../acl/services/role/role.service';
 

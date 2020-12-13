@@ -32,7 +32,9 @@ export default class CoreQueryFilter<Entity> {
       const options = Object.entries({ ...req.query, ...req.params });
       const obj = new (Object.getPrototypeOf(this).constructor)();
       if (req.query.with) {
-        obj._findOptions.relations = req.query.with.toString().split(',');
+        obj._findOptions.relations = Array.isArray(req.query.with)
+          ? req.query.with
+          : [req.query.with];
         delete options['with'];
       }
       obj._findOptions.where = this.initWhere(
@@ -87,7 +89,11 @@ export default class CoreQueryFilter<Entity> {
       qb.where('(true');
       for (const [key, value] of options) {
         if (key in obj) {
-          obj[key](qb, ...value.toString().split(','));
+          if (!Array.isArray(value)) {
+            obj[key](qb, value);
+          } else {
+            obj[key](qb, ...value);
+          }
         }
       }
       qb.andWhere('true)');

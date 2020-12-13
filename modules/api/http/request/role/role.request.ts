@@ -1,6 +1,6 @@
 import { IsNotEmpty, MaxLength } from 'class-validator';
-import RoleEntity from '../../../acl/entities/role.entity';
-import { IsUniqueColumn } from '../../../core/validators/entity.exists.validator';
+import RoleEntity from '../../../../acl/entities/role.entity';
+import { IsUniqueColumn } from '../../../../core/validators/entity.exists.validator';
 
 export default class RoleRequestEntity {
   @IsNotEmpty()

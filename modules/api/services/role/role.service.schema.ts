@@ -1,5 +1,5 @@
 import RoleEntity from '../../../acl/entities/role.entity';
-import RoleRequestEntity from '../../http/request/role.request';
+import RoleRequestEntity from '../../http/request/role/role.request';
 import { RoleServiceInterface as CoreRoleServiceInterface } from '../../../acl/services/role/role.service.schema';
 
 export interface RoleServiceInterface extends CoreRoleServiceInterface {

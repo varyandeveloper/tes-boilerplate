@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import UserEntity from '../../../user/entities/user.entity';
-import { IsUniqueColumn } from '../../../core/validators/entity.exists.validator';
+import UserEntity from '../../../../user/entities/user.entity';
+import { IsUniqueColumn } from '../../../../core/validators/entity.exists.validator';
 
 export default class UserRequest {
   @IsNotEmpty()

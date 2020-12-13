@@ -3,7 +3,7 @@ import RoleController from './role.controller';
 import { permitted } from '../../middlewares/acl';
 import { TYPES } from '../../../../../app/config/types';
 import { validate } from '../../middlewares/validation';
-import RoleRequestEntity from '../../request/role.request';
+import RoleRequestEntity from '../../request/role/role.request';
 import container from '../../../../../app/config/inversify.config';
 import RoleQueryFilter from '../../../../acl/filters/role.query.filter';
 import AuthManager from '../../../../integration/modules/auth/auth.manager';

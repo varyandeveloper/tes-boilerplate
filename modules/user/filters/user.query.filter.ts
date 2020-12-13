@@ -51,7 +51,7 @@ export default class UserQueryFilter extends CoreQueryFilter<UserEntity> {
     return this;
   }
 
-  managedBy(
+  managingBy(
     qb: SelectQueryBuilder<UserEntity>,
     managerId: string
   ): UserQueryFilter {

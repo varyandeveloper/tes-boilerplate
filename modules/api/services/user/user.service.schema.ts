@@ -1,4 +1,4 @@
-import UserRequest from '../../http/request/user.request';
+import UserRequest from '../../http/request/user/user.request';
 import UserEntity from '../../../user/entities/user.entity';
 import { UserServiceInterface as CoreUserServiceInterface } from '../../../user/services/user.service.interface';
 
